@@ -6,20 +6,31 @@ class MenuScene extends Phaser.Scene {
     create() {
         this.cameras.main.setBackgroundColor('#2e5b24');
         if (this.textures.exists('ui_main_bg')) this.add.image(960, 540, 'ui_main_bg').setDisplaySize(1920, 1080);
-        this.add.text(960, 400, '\u0422\u0420\u0418 \u0414\u041d\u042f \u041d\u0410 \u0424\u0415\u0420\u041c\u0415', { fontSize: '120px', color: '#ffffff', fontFamily: 'Courier New', fontStyle: 'bold' }).setOrigin(0.5);
+        this.add.text(960, 400, '\u0422\u0420\u0418 \u0414\u041d\u042f \u041d\u0410 \u0424\u0415\u0420\u041c\u0415', { fontSize: '100px', color: '#ffffff', fontFamily: 'Pixel Operator', fontStyle: 'bold' }).setOrigin(0.5);
         
         let playBtn;
         if (this.textures.exists('ui_btn_bg')) playBtn = this.add.image(960, 600, 'ui_btn_bg').setDisplaySize(400, 100).setInteractive();
         else playBtn = this.add.rectangle(960, 600, 400, 100, 0xe67e22).setInteractive();
         
-        this.add.text(960, 600, '\u0418\u0413\u0420\u0410\u0422\u042c', { fontSize: '60px', color: '#ffffff', fontFamily: 'Courier New', fontStyle: 'bold' }).setOrigin(0.5);
-        playBtn.on('pointerdown', () => { this.scene.start('IntroScene'); });
+        this.add.text(960, 600, '\u0418\u0413\u0420\u0410\u0422\u042c', { fontSize: '60px', color: '#ffffff', fontFamily: 'Pixel Operator', fontStyle: 'bold' }).setOrigin(0.5);
         
+        playBtn.on('pointerdown', () => { 
+            if (this.bgMusic) this.bgMusic.pause();
+            this.scene.start('IntroScene'); 
+        });
+        
+        // ∆≈À≈«Œ¡≈“ŒÕÕ€… «¿œ”—  Ã”«€ » ◊≈–≈« HTML5 AUDIO
         this.input.once('pointerdown', () => {
-            if (this.cache.audio.exists('bgMusic')) {
-                this.bgMusic = this.sound.add('bgMusic', { loop: true, volume: 0.5 });
-                this.bgMusic.play();
-            }
+            let audio = new Audio('assets/music.mp3');
+            audio.loop = true;
+            audio.volume = 0.4;
+            
+            audio.play().then(() => {
+                console.log("Ã”«€ ¿ »√–¿≈“!");
+                this.bgMusic = audio; 
+            }).catch(error => {
+                console.error("¡–¿”«≈– «¿¡ÀŒ »–Œ¬¿À «¬” :", error);
+            });
         });
     }
 }
@@ -31,10 +42,10 @@ class IntroScene extends Phaser.Scene {
     constructor() { super({ key: 'IntroScene' }); }
     create() {
         this.cameras.main.setBackgroundColor('#1a1a2e');
-        this.add.text(960, 300, '\u0414\u044f\u0434\u044f \u043f\u043e\u0434\u0430\u0440\u0438\u043b \u0412\u0430\u043c \u0443\u0447\u0430\u0441\u0442\u043e\u043a!', { fontSize: '60px', color: '#ffffff', fontFamily: 'Courier New' }).setOrigin(0.5);
-        this.add.text(960, 450, '\u041d\u043e \u0435\u0441\u0442\u044c \u0443\u0441\u043b\u043e\u0432\u0438\u0435: \u0437\u0430 3 \u0434\u043d\u044f \u0412\u044b \u0434\u043e\u043b\u0436\u043d\u044b \u0437\u0430\u0440\u0430\u0431\u043e\u0442\u0430\u0442\u044c 700 \u043c\u043e\u043d\u0435\u0442.', { fontSize: '40px', color: '#ffff00', fontFamily: 'Courier New' }).setOrigin(0.5);
-        this.add.text(960, 550, '\u0418\u043d\u0430\u0447\u0435 \u0444\u0435\u0440\u043c\u0430 \u0431\u0443\u0434\u0435\u0442 \u043f\u0440\u043e\u0434\u0430\u043d\u0430. \u0423\u0434\u0430\u0447\u0438 \u0412\u0430\u043c!', { fontSize: '40px', color: '#ffffff', fontFamily: 'Courier New' }).setOrigin(0.5);
-        let startText = this.add.text(960, 800, '\u041d\u0430\u0436\u043c\u0438\u0442\u0435 \u043b\u044e\u0431\u0443\u044e \u043a\u043d\u043e\u043f\u043a\u0443, \u0447\u0442\u043e\u0431\u044b \u043d\u0430\u0447\u0430\u0442\u044c', { fontSize: '30px', color: '#aaaaaa', fontFamily: 'Courier New' }).setOrigin(0.5);
+        this.add.text(960, 300, '\u0414\u044f\u0434\u044f \u043f\u043e\u0434\u0430\u0440\u0438\u043b \u0412\u0430\u043c \u0443\u0447\u0430\u0441\u0442\u043e\u043a!', { fontSize: '50px', color: '#ffffff', fontFamily: 'Pixel Operator' }).setOrigin(0.5);
+        this.add.text(960, 450, '\u041d\u043e \u0435\u0441\u0442\u044c \u0443\u0441\u043b\u043e\u0432\u0438\u0435: \u0437\u0430 3 \u0434\u043d\u044f \u0412\u044b \u0434\u043e\u043b\u0436\u043d\u044b \u0437\u0430\u0440\u0430\u0431\u043e\u0442\u0430\u0442\u044c 700 \u043c\u043e\u043d\u0435\u0442.', { fontSize: '35px', color: '#ffff00', fontFamily: 'Pixel Operator' }).setOrigin(0.5);
+        this.add.text(960, 550, '\u0418\u043d\u0430\u0447\u0435 \u0444\u0435\u0440\u043c\u0430 \u0431\u0443\u0434\u0435\u0442 \u043f\u0440\u043e\u0434\u0430\u043d\u0430. \u0423\u0434\u0430\u0447\u0438 \u0412\u0430\u043c!', { fontSize: '35px', color: '#ffffff', fontFamily: 'Pixel Operator' }).setOrigin(0.5);
+        let startText = this.add.text(960, 800, '\u041d\u0430\u0436\u043c\u0438\u0442\u0435 \u043b\u044e\u0431\u0443\u044e \u043a\u043d\u043e\u043f\u043a\u0443, \u0447\u0442\u043e\u0431\u044b \u043d\u0430\u0447\u0430\u0442\u044c', { fontSize: '25px', color: '#aaaaaa', fontFamily: 'Pixel Operator' }).setOrigin(0.5);
         this.tweens.add({ targets: startText, alpha: 0, duration: 800, yoyo: true, repeat: -1 });
         this.input.once('pointerdown', () => { this.scene.start('GameScene'); });
     }
@@ -50,8 +61,8 @@ class PauseScene extends Phaser.Scene {
         if (this.textures.exists('ui_pause')) this.add.image(960, 540, 'ui_pause').setDisplaySize(800, 600);
         else this.add.rectangle(960, 540, 800, 600, 0x2e5b24);
 
-        this.add.text(960, 400, '\u041f\u0410\u0423\u0417\u0410', { fontSize: '80px', color: '#ffffff', fontFamily: 'Courier New', fontStyle: 'bold' }).setOrigin(0.5);
-        this.add.text(960, 600, '\u041d\u0430\u0436\u043c\u0438\u0442\u0435 ESC \u0447\u0442\u043e\u0431\u044b \u043f\u0440\u043e\u0434\u043e\u043b\u0436\u0438\u0442\u044c', { fontSize: '30px', color: '#aaaaaa', fontFamily: 'Courier New' }).setOrigin(0.5);
+        this.add.text(960, 400, '\u041f\u0410\u0423\u0417\u0410', { fontSize: '70px', color: '#ffffff', fontFamily: 'Pixel Operator', fontStyle: 'bold' }).setOrigin(0.5);
+        this.add.text(960, 600, '\u041d\u0430\u0436\u043c\u0438\u0442\u0435 ESC \u0447\u0442\u043e\u0431\u044b \u043f\u0440\u043e\u0434\u043e\u043b\u0436\u0438\u0442\u044c', { fontSize: '25px', color: '#aaaaaa', fontFamily: 'Pixel Operator' }).setOrigin(0.5);
 
         this.input.keyboard.on('keydown-ESC', () => {
             this.scene.stop(); 
@@ -83,17 +94,15 @@ class GameScene extends Phaser.Scene {
         this.load.image('barrel', 'assets/barrel.png');
         this.load.image('crow', 'assets/crow.png'); 
         
-        // œ–»Õ”ƒ»“≈À‹Õ¿ﬂ «¿√–”« ¿ Ã¿√¿«»Õ¿ » œ”√¿À¿
-        this.load.image('shop', 'assets/shop.png?v=9');
-        this.load.image('scarecrow', 'assets/scarecrow.png?v=9');
+        this.load.image('shop', 'assets/shop.png?v=12'); 
+        this.load.image('scarecrow', 'assets/scarecrow.png?v=4'); 
         
-        this.load.image('ui_money', 'assets/ui_money.png');
-        this.load.image('ui_seeds', 'assets/ui_seeds.png');
-        this.load.image('ui_day', 'assets/ui_day.png');
-        this.load.image('ui_timer', 'assets/ui_timer.png');
-        this.load.image('ui_win', 'assets/ui_win.png'); 
-        this.load.image('ui_lose', 'assets/ui_lose.png'); 
-        this.load.audio('bgMusic', 'assets/music.mp3');
+        // UI ›À≈Ã≈Õ“€ (ÍÓÏÂ ‰ÂÌÂ„, ÒÂÏˇÌ, ‰ÌÂÈ Ë Ú‡ÈÏÂ‡, Ëı Ï˚ ËÒÛÂÏ ÍÓ‰ÓÏ)
+        this.load.image('ui_pause', 'assets/ui_pause.png?v=3');
+        this.load.image('ui_win', 'assets/ui_win.png?v=3'); 
+        this.load.image('ui_lose', 'assets/ui_lose.png?v=3'); 
+        
+        // Ã”«€ ” «¿√–”∆¿≈Ã ◊≈–≈« HTML5, “”“ Õ≈ Õ”∆ÕŒ
     }
 
     create() {
@@ -177,17 +186,18 @@ class GameScene extends Phaser.Scene {
         this.uiLayer = this.add.layer();
         this.uiLayer.setDepth(20);
 
-        this.addUIBackground(50, 50, 260, 60, 'ui_money'); 
-        this.addUIBackground(50, 120, 260, 60, 'ui_seeds'); 
-        this.addUIBackground(50, 190, 300, 60, 'ui_day');   
-        this.addUIBackground(1500, 50, 150, 55, 'ui_timer'); 
+        // –»—”≈Ã ◊≈–Õ€≈ œÀ¿ÿ »  ŒƒŒÃ (·ÂÁ Í‡ÚËÌÓÍ)
+        this.addUIBackground(50, 50, 260, 60); 
+        this.addUIBackground(50, 120, 260, 60); 
+        this.addUIBackground(50, 190, 300, 60);   
+        this.addUIBackground(1500, 50, 150, 55); 
 
-        this.moneyText = this.uiLayer.add(this.add.text(70, 60, '\u041c\u043e\u043d\u0435\u0442\u044b: ' + this.money, { fontSize: '36px', color: '#ffffff', fontFamily: 'Courier New' }));
-        this.seedsText = this.uiLayer.add(this.add.text(70, 130, '\u0421\u0435\u043c\u0435\u043d\u0430: ' + this.seeds, { fontSize: '36px', color: '#ffffff', fontFamily: 'Courier New' }));
-        this.dayText = this.uiLayer.add(this.add.text(70, 200, '\u0414\u0435\u043d\u044c: 1 / 3', { fontSize: '36px', color: '#ffffff', fontFamily: 'Courier New' }));
-        this.timerText = this.uiLayer.add(this.add.text(1520, 60, '10:00', { fontSize: '36px', color: '#ffffff', fontFamily: 'Courier New' }));
+        this.moneyText = this.uiLayer.add(this.add.text(70, 60, '\u041c\u043e\u043d\u0435\u0442\u044b: ' + this.money, { fontSize: '30px', color: '#ffffff', fontFamily: 'Pixel Operator' }));
+        this.seedsText = this.uiLayer.add(this.add.text(70, 130, '\u0421\u0435\u043c\u0435\u043d\u0430: ' + this.seeds, { fontSize: '30px', color: '#ffffff', fontFamily: 'Pixel Operator' }));
+        this.dayText = this.uiLayer.add(this.add.text(70, 200, '\u0414\u0435\u043d\u044c: 1 / 3', { fontSize: '30px', color: '#ffffff', fontFamily: 'Pixel Operator' }));
+        this.timerText = this.uiLayer.add(this.add.text(1520, 60, '10:00', { fontSize: '30px', color: '#ffffff', fontFamily: 'Pixel Operator' }));
         
-        this.hintText = this.uiLayer.add(this.add.text(960, 1000, '', { fontSize: '40px', color: '#ffffff', fontFamily: 'Courier New' }).setOrigin(0.5));
+        this.hintText = this.uiLayer.add(this.add.text(960, 1000, '', { fontSize: '35px', color: '#ffffff', fontFamily: 'Pixel Operator' }).setOrigin(0.5));
 
         // ”Ô‡‚ÎÂÌËÂ
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -212,39 +222,38 @@ class GameScene extends Phaser.Scene {
 
     startTutorial() {
         this.tutorialText = this.uiLayer.add(this.add.text(960, 300, '\u041a\u0443\u043f\u0438\u0442\u0435 \u0441\u0435\u043c\u0435\u043d\u0430 \u0432 \u043c\u0430\u0433\u0430\u0437\u0438\u043d\u0435 (\u043d\u0430\u0436\u043c\u0438\u0442\u0435 1)', { 
-            fontSize: '30px', color: '#ffff00', fontFamily: 'Courier New', backgroundColor: '#000000aa', padding: { x: 20, y: 10 } 
+            fontSize: '25px', color: '#ffff00', fontFamily: 'Pixel Operator', backgroundColor: '#000000aa', padding: { x: 20, y: 10 } 
         }).setOrigin(0.5));
     }
 
     buildShop() {
-        // œ–»Õ”ƒ»“≈À‹ÕŒ —“¿¬»Ã  ¿–“»Õ ”
+        let shopX = 1740;
+        let shopY = 780;
+        
         if (this.textures.exists('shop')) {
-            this.gameLayer.add(this.add.image(1740, 780, 'shop').setDisplaySize(200, 200));
+            this.gameLayer.add(this.add.image(shopX, shopY, 'shop').setDisplaySize(200, 200));
         } else {
-            let shopX = 1650;
-            let shopY = 750;
             let g = this.add.graphics();
+            g.fillStyle(0x5D4037, 1); g.fillRect(shopX - 30, shopY, 240, 60);
             g.fillStyle(0x8B4513, 1); g.fillRect(shopX - 20, shopY - 100, 220, 100);
             g.fillStyle(0x3E2723, 1); g.fillRect(shopX, shopY - 60, 180, 10); g.fillRect(shopX, shopY - 30, 180, 10);
             g.fillStyle(0x2ECC71, 1); g.fillRect(shopX + 10, shopY - 90, 30, 30); 
             g.fillStyle(0xE74C3C, 1); g.fillRect(shopX + 50, shopY - 90, 30, 30); 
             g.fillStyle(0x3498DB, 1); g.fillRect(shopX + 140, shopY - 90, 30, 30); 
-            g.fillStyle(0x5D4037, 1); g.fillRect(shopX - 30, shopY, 240, 60);
             g.fillStyle(0x3E2723, 1); g.fillRect(shopX - 20, shopY, 20, 60); g.fillRect(shopX + 180, shopY, 20, 60);
             g.fillStyle(0xA0522D, 1); g.fillTriangle(shopX - 50, shopY - 100, shopX + 230, shopY - 100, shopX + 90, shopY - 180);
             g.fillStyle(0xF1C40F, 1); g.fillRect(shopX + 30, shopY - 150, 120, 40);
             this.gameLayer.add(g);
-            let shopText = this.add.text(shopX + 90, shopY - 130, 'SHOP', { fontSize: '28px', color: '#000000', fontFamily: 'Courier New', fontStyle: 'bold' }).setOrigin(0.5);
+            let shopText = this.add.text(shopX + 90, shopY - 130, 'SHOP', { fontSize: '28px', color: '#000000', fontFamily: 'Pixel Operator', fontStyle: 'bold' }).setOrigin(0.5);
             this.gameLayer.add(shopText);
         }
     }
 
-    addUIBackground(x, y, w, h, textureKey) {
-        if (this.textures.exists(textureKey)) this.uiLayer.add(this.add.image(x, y, textureKey).setOrigin(0).setDisplaySize(w, h));
-        else {
-            let bg = this.add.graphics(); bg.fillStyle(0x000000, 0.5); bg.fillRoundedRect(x, y, w, h, 10);
-            this.uiLayer.add(bg);
-        }
+    addUIBackground(x, y, w, h) {
+        let bg = this.add.graphics(); 
+        bg.fillStyle(0x000000, 0.5); 
+        bg.fillRoundedRect(x, y, w, h, 10);
+        this.uiLayer.add(bg);
     }
 
     update() {
@@ -259,7 +268,10 @@ class GameScene extends Phaser.Scene {
         if (this.money < 15 && this.seeds === 0) {
             let hasPlanted = false;
             this.plots.forEach(plot => { if (plot.getData('state') !== 'empty') hasPlanted = true; });
-            if (!hasPlanted) { this.gameOver('\u0412\u044b \u0411\u0410\u041d\u041a\u0420\u041e\u0422!'); return; }
+            if (!hasPlanted) { 
+                this.gameOver('\u0412\u044b \u0411\u0410\u041d\u041a\u0420\u041e\u0422!', true); 
+                return; 
+            }
         }
 
         if (this.timeLeft > 0) {
@@ -312,7 +324,7 @@ class GameScene extends Phaser.Scene {
         if (distanceToBarrel < 120) {
             this.hintText.setText('\u041d\u0430\u0436\u043c\u0438\u0442\u0435 E, \u0447\u0442\u043e\u0431\u044b \u043d\u0430\u0431\u0440\u0430\u0442\u044c \u0432\u043e\u0434\u044b');
             if (Phaser.Input.Keyboard.JustDown(this.keyE)) {
-                this.waterInHands = true; this.bucketSprite.setVisible(true); this.flashText('\u0412\u044b \u043d\u0430\u0431\u0440\u0430\u043b\u0438 \u0432\u043e\u0434\u044b');
+                this.waterInHands = true; this.bucketSprite.setVisible(true); 
                 if(this.tutorialStep === 2) { this.tutorialStep = 3; this.tutorialText.setText('\u041f\u043e\u0434\u043e\u0439\u0434\u0438\u0442\u0435 \u043a \u0433\u0440\u044f\u0434\u043a\u0435 \u0438 \u043d\u0430\u0436\u043c\u0438\u0442\u0435 E, \u0447\u0442\u043e\u0431\u044b \u043f\u043e\u043b\u0438\u0442\u044c'); }
             }
         }
@@ -323,20 +335,23 @@ class GameScene extends Phaser.Scene {
             else this.hintText.setText('\u041c\u0430\u0433\u0430\u0437\u0438\u043d: 1 - \u0421\u0435\u043c\u044f (15) | 2 - \u041f\u0443\u0433\u0430\u043b\u043e (250)');
 
             if (Phaser.Input.Keyboard.JustDown(this.key1) && this.money >= 15) { 
-                this.money -= 15; this.seeds += 1; this.updateUI(); this.flashText('\u0412\u044b \u043a\u0443\u043f\u0438\u043b\u0438 \u0441\u0435\u043c\u044f!'); 
+                this.money -= 15; this.seeds += 1; this.updateUI(); 
                 if(this.tutorialStep === 0) { this.tutorialStep = 1; this.tutorialText.setText('\u041f\u043e\u0434\u043e\u0439\u0434\u0438\u0442\u0435 \u043a \u0433\u0440\u044f\u0434\u043a\u0435 \u0438 \u043d\u0430\u0436\u043c\u0438\u0442\u0435 E, \u0447\u0442\u043e\u0431\u044b \u043f\u043e\u0441\u0430\u0434\u0438\u0442\u044c'); }
             }
+            
             if (Phaser.Input.Keyboard.JustDown(this.key2) && !this.hasScarecrow && this.money >= 250) {
-                this.money -= 250; this.hasScarecrow = true; this.updateUI(); this.flashText('\u0412\u044b \u043a\u0443\u043f\u0438\u043b\u0438 \u043f\u0443\u0433\u0430\u043b\u043e!');
+                this.money -= 250; 
+                this.hasScarecrow = true; 
+                this.updateUI(); 
                 
                 if (this.textures.exists('scarecrow')) {
-                    this.bgLayer.add(this.add.image(960, 350, 'scarecrow').setDisplaySize(150, 150));
+                    this.gameLayer.add(this.add.image(960, 350, 'scarecrow').setDisplaySize(80, 92)); 
                 } else {
                     let g = this.add.graphics();
                     g.fillStyle(0x8B4513, 1); g.fillRect(950, 200, 20, 150); 
                     g.fillStyle(0xf1c40f, 1); g.fillRect(910, 180, 100, 30); 
                     g.fillStyle(0xe74c3c, 1); g.fillCircle(960, 160, 30); 
-                    this.bgLayer.add(g);
+                    this.gameLayer.add(g);
                 }
                 
                 this.crowTimer.remove(); 
@@ -376,19 +391,22 @@ class GameScene extends Phaser.Scene {
     }
 
     updateUI() { this.moneyText.setText('\u041c\u043e\u043d\u0435\u0442\u044b: ' + this.money); this.seedsText.setText('\u0421\u0435\u043c\u0435\u043d\u0430: ' + this.seeds); }
-    flashText(message) { let txt = this.add.text(960, 500, message, { fontSize: '40px', color: '#ffff00', fontFamily: 'Courier New', stroke: '#000000', strokeThickness: 4 }).setOrigin(0.5); this.time.delayedCall(1500, () => txt.destroy()); }
 
-    gameOver(reason) {
+    gameOver(reason, isFinalScreen = false) {
         this.isGameOver = true; 
         if(this.player && this.player.body) this.player.body.setVelocity(0); 
         if(this.crowTimer) this.crowTimer.remove();
         
         this.add.rectangle(960, 540, 1920, 1080, 0x000000, 0.8);
-        if (this.textures.exists('ui_lose')) this.add.image(960, 540, 'ui_lose').setDisplaySize(800, 600); 
-        else this.add.rectangle(960, 540, 800, 600, 0x2e5b24);
         
-        this.add.text(960, 400, '\u041f\u041e\u0420\u0410\u0416\u0415\u041d\u0418\u0415', { fontSize: '100px', color: '#ff0000', fontFamily: 'Courier New', fontStyle: 'bold' }).setOrigin(0.5);
-        this.add.text(960, 550, reason, { fontSize: '40px', color: '#ffffff', fontFamily: 'Courier New' }).setOrigin(0.5);
+        if (isFinalScreen) {
+            if (this.textures.exists('ui_lose')) this.add.image(960, 540, 'ui_lose').setDisplaySize(800, 600); 
+            else this.add.rectangle(960, 540, 800, 600, 0x2e5b24);
+        } else {
+            this.add.text(960, 400, '\u0412\u042b \u041f\u0420\u041e\u0418\u0413\u0420\u0410\u041b\u0418', { fontSize: '80px', color: '#ff0000', fontFamily: 'Pixel Operator', fontStyle: 'bold' }).setOrigin(0.5);
+        }
+        
+        this.add.text(960, 550, reason, { fontSize: '35px', color: '#ffffff', fontFamily: 'Pixel Operator' }).setOrigin(0.5);
     }
 
     endDay() {
@@ -399,7 +417,7 @@ class GameScene extends Phaser.Scene {
         }
         
         if (this.currentDay < this.maxDays) {
-            this.add.text(960, 540, '\u0414\u0415\u041d\u042c \u0417\u0410\u041a\u041e\u041d\u0427\u0415\u041d', { fontSize: '100px', color: '#ff0000', fontFamily: 'Courier New', fontStyle: 'bold' }).setOrigin(0.5);
+            this.add.text(960, 540, '\u0414\u0415\u041d\u042c \u0417\u0410\u041a\u041e\u041d\u0427\u0415\u041d', { fontSize: '70px', color: '#ff0000', fontFamily: 'Pixel Operator', fontStyle: 'bold' }).setOrigin(0.5);
             this.time.delayedCall(2000, () => {
                 this.currentDay++; this.dayText.setText('\u0414\u0435\u043d\u044c: ' + this.currentDay + ' / 3');
                 this.timeLeft = 300; this.isDayOver = false;
@@ -414,13 +432,13 @@ class GameScene extends Phaser.Scene {
             if (this.money >= 700) {
                 if (this.textures.exists('ui_win')) this.add.image(960, 540, 'ui_win').setDisplaySize(800, 600); 
                 else this.add.rectangle(960, 540, 800, 600, 0x2e5b24);
-                this.add.text(960, 400, '\u041f\u041e\u0411\u0415\u0414\u0410!', { fontSize: '100px', color: '#00ff00', fontFamily: 'Courier New', fontStyle: 'bold' }).setOrigin(0.5);
-                this.add.text(960, 550, '\u0412\u044b \u0437\u0430\u0440\u0430\u0431\u043e\u0442\u0430\u043b\u0438 ' + this.money + ' \u043c\u043e\u043d\u0435\u0442!', { fontSize: '40px', color: '#ffffff', fontFamily: 'Courier New' }).setOrigin(0.5);
+                this.add.text(960, 400, '\u041f\u041e\u0411\u0415\u0414\u0410!', { fontSize: '70px', color: '#00ff00', fontFamily: 'Pixel Operator', fontStyle: 'bold' }).setOrigin(0.5);
+                this.add.text(960, 550, '\u0412\u044b \u0437\u0430\u0440\u0430\u0431\u043e\u0442\u0430\u043b\u0438 ' + this.money + ' \u043c\u043e\u043d\u0435\u0442!', { fontSize: '30px', color: '#ffffff', fontFamily: 'Pixel Operator' }).setOrigin(0.5);
             } else {
                 if (this.textures.exists('ui_lose')) this.add.image(960, 540, 'ui_lose').setDisplaySize(800, 600); 
                 else this.add.rectangle(960, 540, 800, 600, 0x2e5b24);
-                this.add.text(960, 400, '\u041f\u041e\u0420\u0410\u0416\u0415\u041d\u0418\u0415', { fontSize: '100px', color: '#ff0000', fontFamily: 'Courier New', fontStyle: 'bold' }).setOrigin(0.5);
-                this.add.text(960, 550, '\u0423 \u0412\u0430\u0441 \u0442\u043e\u043b\u044c\u043a\u043e ' + this.money + ' \u043c\u043e\u043d\u0435\u0442...', { fontSize: '40px', color: '#ffffff', fontFamily: 'Courier New' }).setOrigin(0.5);
+                this.add.text(960, 400, '\u041f\u041e\u0420\u0410\u0416\u0415\u041d\u0418\u0415', { fontSize: '70px', color: '#ff0000', fontFamily: 'Pixel Operator', fontStyle: 'bold' }).setOrigin(0.5);
+                this.add.text(960, 550, '\u0423 \u0412\u0430\u0441 \u0442\u043e\u043b\u044c\u043a\u043e ' + this.money + ' \u043c\u043e\u043d\u0435\u0442...', { fontSize: '30px', color: '#ffffff', fontFamily: 'Pixel Operator' }).setOrigin(0.5);
             }
         }
     }
@@ -441,7 +459,9 @@ class GameScene extends Phaser.Scene {
             let plant = plot.getData('plant');
             plot.setData('state', 'empty'); plot.setData('watered', false); plot.setTexture('soil_dry'); plant.setVisible(false);
         });
-        this.seeds = 0; this.updateUI(); this.scene.resume();
+        this.seeds = 0; this.updateUI(); 
+        
+        this.scene.resume();
         this.crowTimer.reset({ delay: 30000, callback: this.triggerCrowAttack, callbackScope: this, loop: true });
     }
 }
@@ -455,14 +475,14 @@ class MinigameScene extends Phaser.Scene {
 
     create() {
         this.add.rectangle(960, 540, 1920, 1080, 0x000000, 0.8);
-        this.add.text(960, 100, '\u041f\u0420\u041e\u0413\u041e\u041d\u0418 \u0412\u041e\u0420\u041e\u041d!', { fontSize: '70px', color: '#ff0000', fontFamily: 'Courier New', fontStyle: 'bold' }).setOrigin(0.5);
-        this.add.text(960, 200, '\u041a\u043b\u0438\u043a\u0430\u0439\u0442\u0435 \u043f\u043e \u0432\u043e\u0440\u043e\u043d\u0430\u043c!', { fontSize: '40px', color: '#ffffff', fontFamily: 'Courier New' }).setOrigin(0.5);
+        this.add.text(960, 100, '\u041f\u0420\u041e\u0413\u041e\u041d\u0418 \u0412\u041e\u0420\u041e\u041d!', { fontSize: '60px', color: '#ff0000', fontFamily: 'Pixel Operator', fontStyle: 'bold' }).setOrigin(0.5);
+        this.add.text(960, 200, '\u041a\u043b\u0438\u043a\u0430\u0439\u0442\u0435 \u043f\u043e \u0432\u043e\u0440\u043e\u043d\u0430\u043c!', { fontSize: '35px', color: '#ffffff', fontFamily: 'Pixel Operator' }).setOrigin(0.5);
 
         this.score = 0; this.maxCrows = 7; 
-        this.scoreText = this.add.text(50, 50, '\u041f\u0440\u043e\u0433\u043d\u0430\u043d\u043e: 0/' + this.maxCrows, { fontSize: '48px', color: '#ffffff', fontFamily: 'Courier New' });
+        this.scoreText = this.add.text(50, 50, '\u041f\u0440\u043e\u0433\u043d\u0430\u043d\u043e: 0/' + this.maxCrows, { fontSize: '40px', color: '#ffffff', fontFamily: 'Pixel Operator' });
         this.timeLeft = 5;
         
-        this.timerText = this.add.text(1350, 50, '\u0412\u0440\u0435\u043c\u044f: 5', { fontSize: '48px', color: '#ff0000', fontFamily: 'Courier New' });
+        this.timerText = this.add.text(1350, 50, '\u0412\u0440\u0435\u043c\u044f: 5', { fontSize: '40px', color: '#ff0000', fontFamily: 'Pixel Operator' });
 
         this.time.addEvent({ delay: 350, callback: this.spawnCrow, callbackScope: this, loop: true });
 
@@ -473,8 +493,7 @@ class MinigameScene extends Phaser.Scene {
                 this.timeLeft--; this.timerText.setText('\u0412\u0440\u0435\u043c\u044f: ' + this.timeLeft);
                 if (this.timeLeft <= 0) {
                     this.timeEvent.remove();
-                    if (this.textures.exists('ui_lose')) this.add.image(960, 540, 'ui_lose').setDisplaySize(800, 600);
-                    this.add.text(960, 540, '\u0412\u0421\u0415 \u041f\u041e\u0421\u0415\u0412\u042b \u0423\u041d\u0418\u0427\u0422\u041e\u0416\u0415\u041d\u042b!', { fontSize: '80px', color: '#ff0000', fontFamily: 'Courier New', fontStyle: 'bold' }).setOrigin(0.5);
+                    this.add.text(960, 540, '\u0412\u0421\u0415 \u041f\u041e\u0421\u0415\u0412\u042b \u0423\u041d\u0418\u0427\u0422\u041e\u0416\u0415\u041d\u042b!', { fontSize: '70px', color: '#ff0000', fontFamily: 'Pixel Operator', fontStyle: 'bold' }).setOrigin(0.5);
                     this.time.delayedCall(1500, () => { this.scene.stop(); this.parentScene.penalty(); });
                 }
             }, loop: true
@@ -500,8 +519,7 @@ class MinigameScene extends Phaser.Scene {
             this.scoreText.setText('\u041f\u0440\u043e\u0433\u043d\u0430\u043d\u043e: ' + this.score + '/' + this.maxCrows);
             if (this.score >= this.maxCrows) {
                 this.timeEvent.remove(); 
-                if (this.textures.exists('ui_win')) this.add.image(960, 540, 'ui_win').setDisplaySize(800, 600);
-                this.add.text(960, 540, '\u0423\u0420\u041e\u0416\u0410\u0419 \u0421\u041f\u0410\u0421\u0415\u041d!', { fontSize: '100px', color: '#00ff00', fontFamily: 'Courier New', fontStyle: 'bold' }).setOrigin(0.5);
+                this.add.text(960, 540, '\u0423\u0420\u041e\u0416\u0410\u0419 \u0421\u041f\u0410\u0421\u0415\u041d!', { fontSize: '70px', color: '#00ff00', fontFamily: 'Pixel Operator', fontStyle: 'bold' }).setOrigin(0.5);
                 this.time.delayedCall(1500, () => { this.scene.stop(); this.parentScene.addReward(); });
             }
         });
