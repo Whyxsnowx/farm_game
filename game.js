@@ -93,16 +93,11 @@ class GameScene extends Phaser.Scene {
         this.load.image('bucket', 'assets/bucket.png');
         this.load.image('barrel', 'assets/barrel.png');
         this.load.image('crow', 'assets/crow.png'); 
-        
         this.load.image('shop', 'assets/shop.png?v=12'); 
         this.load.image('scarecrow', 'assets/scarecrow.png?v=4'); 
-        
-        // UI İËÅÌÅÍÒÛ (êğîìå äåíåã, ñåìÿí, äíåé è òàéìåğà, èõ ìû ğèñóåì êîäîì)
-        this.load.image('ui_pause', 'assets/ui_pause.png?v=3');
-        this.load.image('ui_win', 'assets/ui_win.png?v=3'); 
-        this.load.image('ui_lose', 'assets/ui_lose.png?v=3'); 
-        
-        // ÌÓÇÛÊÓ ÇÀÃĞÓÆÀÅÌ ×ÅĞÅÇ HTML5, ÒÓÒ ÍÅ ÍÓÆÍÎ
+        this.load.image('ui_pause', 'assets/ui_pause.png?v=4');
+        this.load.image('ui_win', 'assets/ui_win.png?v=4'); 
+        this.load.image('ui_lose', 'assets/ui_lose.png?v=4'); 
     }
 
     create() {
@@ -178,15 +173,13 @@ class GameScene extends Phaser.Scene {
         this.bucketSprite.setVisible(false);
         this.gameLayer.add(this.bucketSprite);
 
-        // ÑËÎÉ 3: ÍÎ×Ü
         this.nightOverlay = this.add.rectangle(960, 540, 1920, 1080, 0x000000, 0);
         this.nightOverlay.setDepth(10); 
 
-        // ÑËÎÉ 4: ÈÍÒÅĞÔÅÉÑ
+        // ÑËÎÉ 3: ÈÍÒÅĞÔÅÉÑ
         this.uiLayer = this.add.layer();
         this.uiLayer.setDepth(20);
 
-        // ĞÈÑÓÅÌ ×ÅĞÍÛÅ ÏËÀØÊÈ ÊÎÄÎÌ (áåç êàğòèíîê)
         this.addUIBackground(50, 50, 260, 60); 
         this.addUIBackground(50, 120, 260, 60); 
         this.addUIBackground(50, 190, 300, 60);   
